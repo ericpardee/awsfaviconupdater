@@ -38,6 +38,7 @@ const SERVICES = [
 	"dms",
 	"dynamodb",
 	"ec2",
+	"ec2autoscaling",
 	"ec2sp",
 	"es",
 	"efs",
@@ -113,10 +114,10 @@ let reg_ec2_and_vpc = /:\/\/([a-z0-9.-]*)\/([a-z0-9.-]*)\/([a-zA-Z0-9\.\-\#\:\?\
 let reg_full = /:\/\/([a-z0-9.-]*)\/([a-z0-9.-]*)\/([a-z0-9.-]*)\/([a-zA-Z0-9\.\-\#\:\?\=]*)*/g;
 
 // Break the URL into parts and capture the string after the 'amazon.com/' as awsServiceName
-let captureGroupArray = Array.from( document.URL.matchAll(reg) );
+let captureGroupArray = Array.from(document.URL.matchAll(reg));
 // Note:  This is just to keep my sanity in check.  Most URLs follow the format at the top.  These follow others.
-let captureGroupArrayEC2AndVPC = Array.from( document.URL.matchAll(reg_ec2_and_vpc) );
-let captureGroupArrayLong = Array.from( document.URL.matchAll(reg_full) );
+let captureGroupArrayEC2AndVPC = Array.from(document.URL.matchAll(reg_ec2_and_vpc));
+let captureGroupArrayLong = Array.from(document.URL.matchAll(reg_full));
 
 let domain = captureGroupArray[0][1];
 
@@ -135,66 +136,66 @@ if (domain !== "docs.aws.amazon.com") {
 
 		// In a lot of cases, we need to actually add the favicon tag, because no one at Amazon did this yet!
 		if (awsServiceName === 'amazon-mq' ||
-				awsServiceName === 'apigateway' ||
-				awsServiceName === 'appsync' ||
-				awsServiceName === 'athena' ||
-				awsServiceName === 'awsautoscaling' ||
-				awsServiceName === 'batch' ||
-				awsServiceName === 'billing' ||			
-				awsServiceName === 'cloud9' ||
-				awsServiceName === 'cloudhsm' ||
-				awsServiceName === 'cloudsearch' ||
-				awsServiceName === 'codebuild' ||
-				awsServiceName === 'codecommit' ||
-				awsServiceName === 'codedeploy' ||
-				awsServiceName === 'codepipeline' ||
-				awsServiceName === 'comprehend' ||
-				awsServiceName === 'connect' ||
-				awsServiceName === 'console' ||
-				awsServiceName === 'cost-reports' ||
-				awsServiceName === 'deeplens' ||
-				awsServiceName === 'directconnect' ||
-				awsServiceName === 'devicefarm' ||
-				awsServiceName === 'discovery' ||
-				awsServiceName === 'dms' ||
-				awsServiceName === 'es' ||
-				awsServiceName === 'efs' ||
-				awsServiceName === 'ecs' ||
-				awsServiceName === 'eks' ||
-				awsServiceName === 'glacier' ||
-				awsServiceName === 'glue' ||
-				awsServiceName === 'guardduty' ||
-				awsServiceName === 'iot' ||
-				awsServiceName === 'importexport' ||
-				awsServiceName === 'kinesis' ||
-				awsServiceName === 'kinesisvideo' ||
-				awsServiceName === 'kms' ||
-				awsServiceName === 'lex' ||
-				awsServiceName === 'ls' ||
-				awsServiceName === 'machinelearning' ||
-				awsServiceName === 'mediaconvert' ||
-				awsServiceName === 'medialive' ||
-				awsServiceName === 'mediapackage' ||
-				awsServiceName === 'mediastore' ||
-				awsServiceName === 'mediatailor' ||
-				awsServiceName === 'migrationhub' ||
-				awsServiceName === 'polly' ||
-				awsServiceName === 'rekognition' ||
-				awsServiceName === 's3' ||
-				awsServiceName === 'sagemaker' ||
-				awsServiceName === 'servermigration' ||
-				awsServiceName === 'sns' ||
-				awsServiceName === 'storagegateway' ||
-				awsServiceName === 'sumerian' ||
-				awsServiceName === 'systems-manager' ||
-				awsServiceName === 'swf' ||
-				awsServiceName === 'transcribe' ||
-				awsServiceName === 'translate' ||
-				awsServiceName === 'waf' ||
-				awsServiceName === 'wafv2' ||
-				awsServiceName === 'workmail' ||
-				awsServiceName === 'xray' ||
-				awsServiceName === 'zocalo') {
+			awsServiceName === 'apigateway' ||
+			awsServiceName === 'appsync' ||
+			awsServiceName === 'athena' ||
+			awsServiceName === 'awsautoscaling' ||
+			awsServiceName === 'batch' ||
+			awsServiceName === 'billing' ||
+			awsServiceName === 'cloud9' ||
+			awsServiceName === 'cloudhsm' ||
+			awsServiceName === 'cloudsearch' ||
+			awsServiceName === 'codebuild' ||
+			awsServiceName === 'codecommit' ||
+			awsServiceName === 'codedeploy' ||
+			awsServiceName === 'codepipeline' ||
+			awsServiceName === 'comprehend' ||
+			awsServiceName === 'connect' ||
+			awsServiceName === 'console' ||
+			awsServiceName === 'cost-reports' ||
+			awsServiceName === 'deeplens' ||
+			awsServiceName === 'directconnect' ||
+			awsServiceName === 'devicefarm' ||
+			awsServiceName === 'discovery' ||
+			awsServiceName === 'dms' ||
+			awsServiceName === 'es' ||
+			awsServiceName === 'efs' ||
+			awsServiceName === 'ecs' ||
+			awsServiceName === 'eks' ||
+			awsServiceName === 'glacier' ||
+			awsServiceName === 'glue' ||
+			awsServiceName === 'guardduty' ||
+			awsServiceName === 'iot' ||
+			awsServiceName === 'importexport' ||
+			awsServiceName === 'kinesis' ||
+			awsServiceName === 'kinesisvideo' ||
+			awsServiceName === 'kms' ||
+			awsServiceName === 'lex' ||
+			awsServiceName === 'ls' ||
+			awsServiceName === 'machinelearning' ||
+			awsServiceName === 'mediaconvert' ||
+			awsServiceName === 'medialive' ||
+			awsServiceName === 'mediapackage' ||
+			awsServiceName === 'mediastore' ||
+			awsServiceName === 'mediatailor' ||
+			awsServiceName === 'migrationhub' ||
+			awsServiceName === 'polly' ||
+			awsServiceName === 'rekognition' ||
+			awsServiceName === 's3' ||
+			awsServiceName === 'sagemaker' ||
+			awsServiceName === 'servermigration' ||
+			awsServiceName === 'sns' ||
+			awsServiceName === 'storagegateway' ||
+			awsServiceName === 'sumerian' ||
+			awsServiceName === 'systems-manager' ||
+			awsServiceName === 'swf' ||
+			awsServiceName === 'transcribe' ||
+			awsServiceName === 'translate' ||
+			awsServiceName === 'waf' ||
+			awsServiceName === 'wafv2' ||
+			awsServiceName === 'workmail' ||
+			awsServiceName === 'xray' ||
+			awsServiceName === 'zocalo') {
 
 			// Build the icon and shortcut icon tags so we can add them inside the head tag
 			let iconNode = document.createElement('link');
@@ -209,7 +210,7 @@ if (domain !== "docs.aws.amazon.com") {
 			// Add the tags we just made to the head tag
 			document.getElementsByTagName('head')[0].appendChild(iconNode);
 			document.getElementsByTagName('head')[0].appendChild(shortcutIconNode);
-		} else if(awsServiceName === 'ec2') {
+		} else if (awsServiceName === 'ec2' || awsServiceName === 'ec2autoscaling') {
 
 			// There is a "v2" url for a bunch of these, and it flips on and off for no reason.  Check for this.
 
@@ -221,8 +222,9 @@ if (domain !== "docs.aws.amazon.com") {
 				endOfURL = captureGroupArrayEC2AndVPC[0][3]
 			}
 
-			if (endOfURL.includes('AutoScalingGroups')) {
-				awsServiceName = 'AutoScalingGroups';
+			if (endOfURL.includes('LaunchConfigurations')) {
+				awsServiceName = 'LaunchConfigurations';
+				document.title = "Launch Configurations | " + document.title;
 			} else if (endOfURL.includes('Addresses')) {
 				awsServiceName = 'Addresses';
 			} else if (endOfURL.includes('LoadBalancers')) {
@@ -231,6 +233,11 @@ if (domain !== "docs.aws.amazon.com") {
 				awsServiceName = 'Images';
 			} else if (endOfURL.includes('NIC')) {
 				awsServiceName = 'NIC';
+			}
+
+			if (awsServiceName === 'ec2autoscaling') {
+				awsServiceName = 'AutoScalingGroups';
+				document.title = "Auto Scaling | " + document.title;
 			}
 
 			// TODO: Make all this code a function
@@ -248,11 +255,7 @@ if (domain !== "docs.aws.amazon.com") {
 			document.getElementsByTagName('head')[0].appendChild(iconNode);
 			document.getElementsByTagName('head')[0].appendChild(shortcutIconNode);
 
-
-
-
-
-		} else if(awsServiceName === 'vpc') {
+		} else if (awsServiceName === 'vpc') {
 
 			let awsServiceName = captureGroupArrayEC2AndVPC[0][3];
 
@@ -272,7 +275,7 @@ if (domain !== "docs.aws.amazon.com") {
 				awsServiceName = 'acls';
 			} else if (awsServiceName.includes('CustomerGateways')) {
 				awsServiceName = 'CustomerGateways';
-			}	else {
+			} else {
 				awsServiceName = 'vpc';
 			}
 
