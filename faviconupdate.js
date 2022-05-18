@@ -40,6 +40,7 @@ const SERVICES = [
 	"ec2",
 	"ec2autoscaling",
 	"ec2sp",
+	"ecr",
 	"es",
 	"efs",
 	"ecs",
@@ -160,6 +161,7 @@ if (domain !== "docs.aws.amazon.com") {
 			awsServiceName === 'dms' ||
 			awsServiceName === 'es' ||
 			awsServiceName === 'efs' ||
+			awsServiceName === 'ecr' ||
 			awsServiceName === 'ecs' ||
 			awsServiceName === 'eks' ||
 			awsServiceName === 'glacier' ||
